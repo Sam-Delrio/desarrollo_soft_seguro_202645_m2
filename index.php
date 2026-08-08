@@ -3,6 +3,9 @@
     session_start();
     // session_destroy();
     
+    // Constante para evitar duplicar el literal "Location:?" (SonarQube php:S1192)
+    define('REDIRECT_DEFAULT', 'Location:?');
+
     require_once "models/DataBase.php";
     $allowed_controllers = [
         'Landing',
@@ -47,13 +50,13 @@
                 call_user_func(array($controller, $action));
                 require_once $footer_path;
             } else {
-                header("Location:?");
+                header(REDIRECT_DEFAULT);
             }
         } else {
-            header("Location:?");
+            header(REDIRECT_DEFAULT);
         }
     } else {
-        header("Location:?");
+        header(REDIRECT_DEFAULT);
     }
     
     ob_end_flush();
