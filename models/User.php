@@ -147,7 +147,7 @@
                         WHERE user_email = :userEmail AND user_pass = :userPass';
                 $stmt = $this->dbh->prepare($sql);
                 $stmt->bindValue('userEmail', $this->getUserEmail());
-                $stmt->bindValue('userPass', sha1($this->getUserPass()));
+                $stmt->bindValue('userPass', hash('sha256', $this->getUserPass()));
                 $stmt->execute();
                 $userDb = $stmt->fetch();
                 if ($userDb) {
@@ -267,7 +267,7 @@
                 $stmt->bindValue('userLastName', $this->getUserLastName());
                 $stmt->bindValue('userId', $this->getUserId());
                 $stmt->bindValue('userEmail', $this->getUserEmail());
-                $stmt->bindValue('userPass', sha1($this->getUserPass()));
+                $stmt->bindValue('userPass', hash('sha256', $this->getUserPass()));
                 $stmt->bindValue('userState', $this->getUserState());
                 $stmt->execute();
             } catch (Exception $e) {
@@ -371,7 +371,7 @@
                 $stmt->bindValue('userLastName', $this->getUserLastName());
                 $stmt->bindValue('userId', $this->getUserId());
                 $stmt->bindValue('userEmail', $this->getUserEmail());
-                $stmt->bindValue('userPass', sha1($this->getUserPass()));
+                $stmt->bindValue('userPass', hash('sha256', $this->getUserPass()));
                 $stmt->bindValue('userState', $this->getUserState());
                 $stmt->execute();
             } catch (Exception $e) {
